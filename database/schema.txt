@@ -1,0 +1,106 @@
+database schema :-
+The "patients" table has the following columns:
+
+"id" which is an auto-incrementing integer primary key
+"name" which is a string of variable length up to 255 characters, and cannot be null
+"address" which is a string of variable length up to 255 characters, and cannot be null
+"email" which is a string of variable length up to 255 characters, and cannot be null and unique
+"phone_number" which is a string of variable length up to 255 characters, and cannot be null
+"password" which is a string of variable length up to 255 characters, and cannot be null
+"photo" which is a string of variable length up to 255 characters, and cannot be null
+"created_at" which is a timestamp with the default value of the current time and date
+"updated_at" which is a timestamp with the default value of the current time and date whenever updated
+"psychiatrist_id" which is an integer and cannot be null
+"psychiatrist_id" also has a foreign key constraint referencing the "id" column in the "psychiatrists" table.
+
+Query Executed:-
+
+CREATE TABLE patients (
+    ->   id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   name VARCHAR(255) NOT NULL,
+    ->   address VARCHAR(255) NOT NULL,
+    ->   email VARCHAR(255) NOT NULL UNIQUE,
+    ->   phone_number VARCHAR(255) NOT NULL,
+    ->   password VARCHAR(255) NOT NULL,
+    ->   photo VARCHAR(255) NOT NULL,
+    ->   created_at TIMESTAMP DEFAULT NOW(),
+    ->   updated_at TIMESTAMP DEFAULT NOW() ON UPDATE NOW(),
+    ->   psychiatrist_id INT NOT NULL,
+    ->   FOREIGN KEY (psychiatrist_id) REFERENCES psychiatrists(id)
+    -> );
+
+
+"psychiatrists" table:-
+
+"id" which is an auto-incrementing integer primary key
+"name" which is a string of variable length up to 255 characters, and cannot be null
+"email" which is a string of variable length up to 255 characters, and cannot be null and unique
+"phone_number" which is a string of variable length up to 255 characters, and cannot be null
+"password" which is a string of variable length up to 255 characters, and cannot be null
+"created_at" which is a timestamp with the default value of the current time and date
+"updated_at" which is a timestamp with the default value of the current time and date whenever updated
+"hospital_id" which is an integer and cannot be null, also it is a foreign key references to hospitals table.
+
+Query Executed:-
+
+CREATE TABLE psychiatrists (
+    ->   id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   name VARCHAR(255) NOT NULL,
+    ->   email VARCHAR(255) NOT NULL UNIQUE,
+    ->   phone_number VARCHAR(255) NOT NULL,
+    ->   password VARCHAR(255) NOT NULL,
+    ->   created_at TIMESTAMP DEFAULT NOW(),
+    ->   updated_at TIMESTAMP DEFAULT NOW() ON UPDATE NOW(),
+    ->   hospital_id INT NOT NULL,
+    ->   FOREIGN KEY (hospital_id) REFERENCES hospitals(id)
+    -> );
+
+hospitals:-
+"id" which is an auto-incrementing integer primary key.
+"name" which is a string of variable length up to 255 characters, and cannot be null
+"address" which is a string of variable length up to 255 characters, and cannot be null
+"created_at" which is a timestamp with the default value of the current time and date
+"updated_at" which is a timestamp with the default value of the current time and date whenever updated.
+
+
+Query Executed:-
+CREATE TABLE hospitals (
+    ->   id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   name VARCHAR(255) NOT NULL,
+    ->   address VARCHAR(255) NOT NULL,
+    ->   created_at TIMESTAMP DEFAULT NOW(),
+    ->   updated_at TIMESTAMP DEFAULT NOW() ON UPDATE NOW()
+    -> );
+
+Sample Data:-
+
+INSERT INTO hospitals (name) VALUES ('Apollo Hospitals');
+INSERT INTO hospitals (name) VALUES ('Jawaharlal Nehru Medical College and Hospital');
+INSERT INTO hospitals (name) VALUES ('Indira Gandhi Institute of Medical Sciences (IGIMS)');
+INSERT INTO hospitals (name) VALUES ('AIIMS - All India Institute Of Medical Science');
+
+
+ INSERT INTO psychiatrists (name, email, phone_number, password, hospital_id) VALUES
+    -> ("Dr. John Smith", "jsmith@gmail.com", "+1234567890", "password1", 1),
+    -> ("Dr. Jane Doe", "jdoe@gmail.com", "+0987654321", "password2", 1),
+    -> ("Dr. Michael Johnson", "mjohnson@gmail.com", "+2345678901", "password3", 1),
+    -> ("Dr. Lisa Williams", "lwilliams@gmail.com", "+3456789012", "password4", 1),
+    -> ("Dr. David Brown", "dbrown@gmail.com", "+4567890123", "password5", 1),
+    ->
+    -> ("Dr. Robert Garcia", "rgarcia@gmail.com", "+5678901234", "password6", 2),
+    -> ("Dr. Kim Martinez", "kmartinez@gmail.com", "+6789012345", "password7", 2),
+    -> ("Dr. James Rodriguez", "jrodriguez@gmail.com", "+7890123456", "password8", 2),
+    -> ("Dr. Christina Taylor", "ctaylor@gmail.com", "+8901234567", "password9", 2),
+    -> ("Dr. George Anderson", "ganderson@gmail.com", "+9012345678", "password10", 2),
+    ->
+    -> ("Dr. Christopher Thomas", "cthomas@gmail.com", "+0123456789", "password11", 3),
+    -> ("Dr. Joseph Hernandez", "jhernandez@gmail.com", "+1234567890", "password12", 3),
+    -> ("Dr. Anthony Perez", "aperez@gmail.com", "+2345678901", "password13", 3),
+    -> ("Dr. Kevin Davis", "kdavis@gmail.com", "+3456789012", "password14", 3),
+    -> ("Dr. Ronald Miller", "rmiller@gmail.com", "+4567890123", "password15", 3),
+    ->
+    -> ("Dr. Adam Smith", "asmith@gmail.com", "+5678901234", "password16", 4),
+    -> ("Dr. Brian Lewis", "blewis@gmail.com", "+6789012345", "password17", 4),
+    -> ("Dr. Charles Lee", "clee@gmail.com", "+7890123456", "password18", 4),
+    -> ("Dr. Daniel Lewis", "dlewis@gmail.com", "+8901234567", "password19", 4),
+    -> ("Dr. Paul Green", "pgreen@gmail.com", "+9012345678", "password20", 4);
